@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this template
+-->
+<html lang="es">
+    <head>
+        <title>iniciar sesión</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="..\css\estilo.css"/>
+        <link rel="icon" href="..\media\photo\favicon.png">
+    </head>
+    <body>
+        <div class="imagenLogin">
+            <div class="imagenCentrada">
+                <img src="..\media\photo\favicon.png">
+            </div>
+        </div>
+        <div class="formulario">
+            <h1>iniciar sesión</h1>
+            <form method="get" action="..\jsp\resultado.jsp">
+                <div>
+                    <label for="correo">correo electrónico</label>
+                    <input type="email" name="correo" id="correo">
+                </div>
+                <div>
+                    <label for="contrasenha">contraseña</label>
+                    <input type="password" name="contrasenha" id="contrasenha">
+                </div>
+                <div>
+                    <input type="submit" value="iniciar sesión" id="botonIniciarSesion">
+                </div>
+                <div>
+                    <input type="submit" value="¿aún sin cuenta? regístrate" id="botonRegistrarse">
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,316 @@
+@import url('https://fonts.googleapis.com/css2?family=Handlee&family=Quicksand:wght@300;600&family=Raleway:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Oswald:wght@500&family=Ubuntu&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&display=swap');
+
+.video{
+    /*Fuente: https://www.w3schools.com/cssref/pr_pos_z-index.php*/
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: -1;
+    width: 100%;/*Por alguna razón ahora el navegador me exige poner el width en el div también.*/
+}
+
+.video video{/*El width arriba no afectaría al width del vídeo. Por eso seleccionamos así.*/
+    width: 100%;
+}
+
+h1{
+    font-family: 'Quicksand', sans-serif;
+    color: white;
+    font-size: 5rem;
+    text-align: center;
+    margin-top: 25rem;
+}
+
+.downArrow{
+    text-align: center;
+    margin-top: 24rem;
+    cursor: pointer;
+}
+
+.barraSuperior{
+    color: white;
+    font-size: 1.6rem;
+    font-family: 'Nunito', sans-serif;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 4rem;
+    margin-right: 4rem;
+    margin-top: 4rem;
+    position: sticky;/*CSS moderno, con el objetivo de que la barra nos siga cuando hacemos scroll.*/
+    top: 2rem;/*Fuente: https://stackoverflow.com/questions/11399537/how-do-you-make-a-div-follow-as-you-scroll*/
+}
+
+.imagen{
+    z-index: -1;
+    width: 100%;
+    position: absolute;
+    text-align: left;
+}
+
+#pajaros{
+    margin-top: 5rem;
+}
+
+.imagen img{
+    width: 100%;
+}
+
+h2{
+    font-family: 'Quicksand', sans-serif;
+    color: black;
+    font-size: 3rem;
+    text-align: center;
+}
+
+#ytplayer{
+    width: 100%;
+    height: 1080px;
+    margin-top: 41rem;
+}
+
+.panelNegro{
+    background-color: black;
+    margin-top: 0rem;
+    padding-bottom: 15rem;
+    padding-top: 5rem;
+}
+
+#tituloPajaros{
+    margin-top: 25rem;
+}
+
+p{
+    color: white;
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.panelNegro img{
+    width: 30rem;
+    height: auto;
+    display: block;/*Para centrar la imagen. Fuente: https://www.w3schools.com/howto/howto_css_image_center.asp*/
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.boton{
+    background-color: rgba(0, 0, 0, 0);
+    color: white;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 2rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25rem;
+    border-width: 0.2rem;
+    border-color: white;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.panelFinal{
+    background-color: #c6c5c1;
+    margin-top: 30rem;
+    padding-bottom: 10rem;
+    padding-top: 5rem;
+}
+
+.panelFinal ul li{
+    color: white;
+    display: inline;
+    font-size: 2.3rem;
+    margin-left: 3rem;
+    margin-right: 3rem;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.panelFinal ul{
+    text-align: center;
+}
+
+h3{
+    font-family: 'Quicksand', sans-serif;
+    color: white;
+    font-size: 4rem;
+    text-align: center;
+    margin-top: 15rem;
+    margin-bottom: 0rem;
+}
+
+h4{
+    font-family: 'Quicksand', sans-serif;
+    color: #e2e2e0;
+    font-size: 1.7rem;
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 0rem;
+}
+
+#menu{
+    cursor: pointer;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.menu{
+    text-align: center;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 3rem;
+    color: white;
+    width: 100%;
+}
+.menu ul{
+    list-style: none;
+    margin-top: 10rem;
+}
+.menu li{
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+.menu li:hover{
+    cursor: pointer;
+    color: #e2e2e0;
+}
+.cerrarMenu{
+    text-align: right;
+    cursor: pointer;
+    margin-right: 2rem;
+    margin-top: 2rem;
+}
+.cerrarMenu img{
+    width: 4rem;
+}
+#phone{
+    color: #a9a8a4;
+}
+#phone:hover{
+    color: #b8b7b3;
+}
+a{
+    text-decoration: none;
+    color: inherit;
+}
+a:visited{
+    color: inherit;
+}
+#menuBody{
+    background-color: #c6c5c1;
+}
+#barraSuperiorTienda{
+    color: black;
+    font-size: 1.3rem;
+}
+.imagenCentrada{
+    text-align: center;
+}
+.imagenCentrada img{
+    width: 40rem;
+}
+.barraSeleccionVistaTienda{
+    text-align: center;
+    font-size: 1.3rem;
+    font-family: 'Open Sans', sans-serif;
+}
+.barraSeleccionVistaTienda li{
+    display: inline;
+    margin-right: 1.2rem;
+    margin-left: 1.2rem;
+}
+.barraSeleccionVistaTienda li:hover{
+    cursor: pointer;
+}
+.barraSeleccionSubrayado{
+    text-decoration: underline black 0.1rem;
+    font-weight: bold;
+    display: inline;
+}
+.contenedorArticulos{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    width: 20rem;
+    /*Centramos un poco:*/
+    margin-left: 30rem;
+    margin-right: 30rem;
+}
+.articuloGrid img{
+    width: 17rem;
+    height: auto;
+}
+.tituloArticulo{
+    font-size: 1rem;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 500;
+}
+.colorArticulo{
+    font-size: 0.9rem;
+    font-family: 'Open Sans', sans-serif;
+}
+.precioArticulo{
+    font-size: 1.1rem;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+}
+.articuloGrid{
+    margin-right: 5rem;
+    cursor: pointer;
+}
+.articuloGrid span{
+    text-align: center;
+    display: block;
+}
+.imagenLogin img{
+    width: 5rem;
+    margin-top: 5rem;
+}
+.formulario h1{
+    color: black;
+    font-size: 3rem;
+    font-family: 'Nunito', sans-serif;
+    margin-top: 2rem;
+}
+.formulario{
+    text-align: center;
+}
+.formulario label{
+    font-size: 2rem;
+    font-family: 'Ubuntu', sans-serif;
+    color: black;
+    display: block;
+    margin-bottom: 1rem;
+}
+.formulario input{
+    border-radius: 4px;
+    /*padding: 1rem 10rem;*/
+    border: 0.1rem solid #ccc;
+    text-align: left;
+    box-sizing: border-box;/*Fuente: https://developer.mozilla.org/es/docs/Learn/Forms/Styling_web_forms*/
+    padding: 0;
+    width: 20rem;
+    height: 2rem;
+    font-size: 1.2rem;
+    font-family: 'Nunito', sans-serif;
+    margin-bottom: 2rem;
+}
+.formulario input[type="submit"]{
+    text-align: center;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+}
+#botonIniciarSesion{
+    background-color: #00c9ca;
+    color: white;
+}
+#botonRegistrarse{
+    background-color: white;
+    color: black;
+}
