@@ -19,7 +19,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
         </div>
         <div class="formulario">
             <h1>registrar cuenta</h1>
-            <form method="get" id="registrarCuentaForm" action="..\jsp\cuentaRegistrada.jsp">
+            <form method="get" id="registrarCuentaForm" action="..\do\registrarCuentaBD">
                 <div>
                     <label for="correo">correo electrónico</label>
                     <input type="email" name="correo" id="correo" required>
@@ -40,11 +40,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                     <label for="apellidos">apellidos</label>
                     <input type="text" name="apellidos" id="apellidos" required>
                 </div>
+                <div class="h-captcha" data-sitekey="c44a6c2b-a679-4cd1-9dd7-c9bcd8a6c176"></div>
                 <div>
                     <input type="submit" value="registrarse" id="botonIniciarSesion">
                 </div>
             </form>
         </div>
         <script src="../js/registrarCuenta.js"></script><!--Se pone al final del body-->
+        <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
     </body>
 </html>

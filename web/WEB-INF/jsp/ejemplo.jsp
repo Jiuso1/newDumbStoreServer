@@ -38,6 +38,9 @@
                 out.println("descripcion = " + rs.getString("descripcion"));
                 out.println("</p>");
             }
+            rs.close();
+            stat.close();
+            conn.close();
         %>
 
     </body>
