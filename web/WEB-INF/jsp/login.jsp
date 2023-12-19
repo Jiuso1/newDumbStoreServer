@@ -20,12 +20,17 @@
             </div>
         </div>
         <%
-            String correo = request.getParameter("correo");
-            String contrasenha = request.getParameter("contrasenha");
-            String xd = (String) request.getAttribute("xd");
-            out.println(correo);
-            out.println(contrasenha);
-            out.println(xd);
+            String error = (String) request.getAttribute("error");
+            String idCuenta = (String) request.getAttribute("idCuenta");
+
+            if (error != null) {
+                out.println("<h2>Error al iniciar sesión</h2>");
+                out.println("<h2>"+error+"</h2>");
+            } else {
+                out.println("<h2>Ha iniciado sesión correctamente</h2>");
+                out.println("<h2>El id de su cuenta es " + idCuenta + "</h2>");
+                session.setAttribute("idCuenta", idCuenta);//Guardamos idCuenta en la sesión, habiéndola recibido previamente por el Controlador por medio de atrbiutos en la request.
+            }
         %>
     </body>
 </html>

@@ -180,23 +180,39 @@ public class Controlador extends HttpServlet {
                 String contrasenhaBD = null;
                 String contrasenhaBDdescifrada = null;
                 request.setAttribute("xd", "lalala");
+                String idCredencial = null;
+                String idCuenta = null;
 
                 //Seleccionamos la contraseña con el email pasado (si no existe el email valdrá null):
                 try {
-                    ps = conn.prepareStatement("SELECT CONTRASENHA FROM CREDENCIAL WHERE CORREO=?");
+                    ps = conn.prepareStatement("SELECT CONTRASENHA, ID FROM CREDENCIAL WHERE CORREO=?");
                     ps.setString(1, correo);
                     rs = ps.executeQuery();
                     while (rs.next()) {
                         contrasenhaBD = rs.getString("contrasenha");
+                        idCredencial = rs.getString("id");
                     }
                     ps.close();
 
-                    if (contrasenhaBD == null) {
+                    if (correo == null || contrasenhaBD == null) {
                         request.setAttribute("error", "error al iniciar sesión: verifique su correo y contraseña");
                     } else {
                         //Desciframos la contraseña de la BD:
                         contrasenhaBDdescifrada = decrypt(contrasenhaBD, secretKey);
-                        System.out.println(contrasenhaBDdescifrada);
+                        if (!contrasenha.equals(contrasenhaBDdescifrada)) {
+                            request.setAttribute("error", "error al iniciar sesión: verifique su correo y contraseña");
+                        } else {
+                            ps = conn.prepareStatement("SELECT ID FROM CUENTA WHERE CREDENCIAL=?");
+                            ps.setString(1, idCredencial);
+                            rs = ps.executeQuery();
+                            while (rs.next()) {
+                                idCuenta = rs.getString("id");
+                                System.out.println(idCuenta);
+                            }
+                            ps.close();
+                            request.setAttribute("idCuenta", idCuenta);//Mandamos por la request idCuenta.
+                            //request.removeAttribute("error");
+                        }
                     }
 
                 } catch (Exception ex) {
