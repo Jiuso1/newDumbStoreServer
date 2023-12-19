@@ -1,19 +1,15 @@
 <%-- 
-    Document   : resultado
-    Created on : 10 dic 2023, 17:41:27
+    Document   : login
+    Created on : 19 dic 2023, 13:03:36
     Author     : jesus
 --%>
 
-<%@page import="java.sql.Statement"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.DriverManager"%>
-<%@page import="java.sql.Connection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>cuenta registrada</title>
+        <title>login</title>
         <link rel="stylesheet" type="text/css" href="..\css\estilo.css"/>
         <link rel="icon" href="..\media\photo\favicon.png">
     </head>
@@ -23,11 +19,13 @@
                 <img src="..\media\photo\favicon.png">
             </div>
         </div>
-        <div class="formulario">
-            <form method="post" action="..\html\index.html">
-                <h1>Su cuenta ha sido registrada</h1>
-                <input type="submit" value="ok" id="botonIniciarSesion">
-            </form>
-        </div>
+        <%
+            String correo = request.getParameter("correo");
+            String contrasenha = request.getParameter("contrasenha");
+            String xd = (String) request.getAttribute("xd");
+            out.println(correo);
+            out.println(contrasenha);
+            out.println(xd);
+        %>
     </body>
 </html>

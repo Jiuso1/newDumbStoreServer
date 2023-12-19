@@ -9,12 +9,14 @@ import java.io.PrintWriter;
 import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -22,7 +24,9 @@ import java.util.regex.Pattern;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -39,7 +43,10 @@ import javax.servlet.http.HttpServletResponse;
 public class Controlador extends HttpServlet {
 
     private Connection conn;
-    private String key;
+    private static Cipher cipher;
+    KeyGenerator keyGenerator;
+    SecretKey secretKey;
+    SecureRandom random;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -57,7 +64,20 @@ public class Controlador extends HttpServlet {
         } catch (ClassNotFoundException | SQLException ex) {
 
         }
-        key = "Bar12345Bar12345";
+        try {
+            keyGenerator = KeyGenerator.getInstance("AES");
+        } catch (NoSuchAlgorithmException ex) {
+            System.out.println(ex.getMessage());
+        }
+        random = new SecureRandom();
+        random.setSeed(547834);
+        keyGenerator.init(random);
+        secretKey = keyGenerator.generateKey();
+        try {
+            cipher = Cipher.getInstance("AES");
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -116,15 +136,7 @@ public class Controlador extends HttpServlet {
 
                     //Ciframos la contrasenha:
                     String contrasenhaCifrada = null;
-                    Key aesKey = new SecretKeySpec(key.getBytes(), "AES");
-                    try {
-                        Cipher cipher = Cipher.getInstance("AES");
-                        cipher.init(Cipher.ENCRYPT_MODE, aesKey);
-                        byte[] encrypted = cipher.doFinal(contrasenha.getBytes());
-                        contrasenhaCifrada = new String(encrypted);
-                    } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException ex) {
-                        System.out.println(ex.getMessage());
-                    }
+                    contrasenhaCifrada = encrypt(contrasenha, secretKey);
 
                     ps.setString(2, contrasenhaCifrada);
                     ps.executeUpdate();
@@ -147,6 +159,8 @@ public class Controlador extends HttpServlet {
 
                 } catch (SQLException ex) {
                     System.out.println(ex.getMessage());
+                } catch (Exception ex) {
+                    System.out.println(ex.getMessage());
                 } finally {
                     try {
                         if (ps != null) {
@@ -160,8 +174,44 @@ public class Controlador extends HttpServlet {
                 vista = "../WEB-INF/jsp/cuentaRegistrada.jsp";
                 break;
             }
-            case "/iniciarSesionBD":{
-                vista = "../WEB-INF/jsp/ejemplo.jsp";
+            case "/iniciarSesionBD": {
+                String correo = request.getParameter("correo");
+                String contrasenha = request.getParameter("contrasenha");
+                String contrasenhaBD = null;
+                String contrasenhaBDdescifrada = null;
+                request.setAttribute("xd", "lalala");
+
+                //Seleccionamos la contraseña con el email pasado (si no existe el email valdrá null):
+                try {
+                    ps = conn.prepareStatement("SELECT CONTRASENHA FROM CREDENCIAL WHERE CORREO=?");
+                    ps.setString(1, correo);
+                    rs = ps.executeQuery();
+                    while (rs.next()) {
+                        contrasenhaBD = rs.getString("contrasenha");
+                    }
+                    ps.close();
+
+                    if (contrasenhaBD == null) {
+                        request.setAttribute("error", "error al iniciar sesión: verifique su correo y contraseña");
+                    } else {
+                        //Desciframos la contraseña de la BD:
+                        contrasenhaBDdescifrada = decrypt(contrasenhaBD, secretKey);
+                        System.out.println(contrasenhaBDdescifrada);
+                    }
+
+                } catch (Exception ex) {
+                    System.out.println(ex.getMessage());
+                } finally {
+                    try {
+                        if (ps != null) {
+                            ps.close();
+                        }
+                    } catch (SQLException ex) {
+                        System.out.println(ex.getMessage());
+                    }
+                }
+
+                vista = "../WEB-INF/jsp/login.jsp";
                 break;
             }
         }
@@ -183,6 +233,26 @@ public class Controlador extends HttpServlet {
     public static boolean validateEmail(String email) {
         Matcher m = emailPattern.matcher(email);
         return !m.matches();
+    }
+
+    public static String encrypt(String plainText, SecretKey secretKey)
+            throws Exception {
+        byte[] plainTextByte = plainText.getBytes();
+        cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+        byte[] encryptedByte = cipher.doFinal(plainTextByte);
+        Base64.Encoder encoder = Base64.getEncoder();
+        String encryptedText = encoder.encodeToString(encryptedByte);
+        return encryptedText;
+    }
+
+    public static String decrypt(String encryptedText, SecretKey secretKey)
+            throws Exception {
+        Base64.Decoder decoder = Base64.getDecoder();
+        byte[] encryptedTextByte = decoder.decode(encryptedText);
+        cipher.init(Cipher.DECRYPT_MODE, secretKey);
+        byte[] decryptedByte = cipher.doFinal(encryptedTextByte);
+        String decryptedText = new String(decryptedByte);
+        return decryptedText;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
