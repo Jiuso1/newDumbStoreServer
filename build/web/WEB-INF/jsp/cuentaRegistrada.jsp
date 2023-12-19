@@ -14,8 +14,20 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link rel="stylesheet" type="text/css" href="..\css\estilo.css"/>
+        <link rel="icon" href="..\media\photo\favicon.png">
     </head>
     <body>
-        <h1>Su cuenta ha sido registrada</h1>
+        <div class="imagenLogin">
+            <div class="imagenCentrada">
+                <img src="..\media\photo\favicon.png">
+            </div>
+        </div>
+        <div class="formulario">
+            <form method="post" action="..\html\index.html">
+                <h1>Su cuenta ha sido registrada</h1>
+                <input type="submit" value="ok" id="botonIniciarSesion">
+            </form>
+        </div>
     </body>
 </html>
